@@ -3,17 +3,21 @@
 	<head>
 		<meta charset='UTF-8' />
 		<meta name="robots" content="noindex" />
-		<link rel="shortcut icon" href="favicon.png" />
+		<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' gap://* ws://* http://* https://* *" />
 		<meta name="viewport" content="width=device-width,user-scalable=no" />
 		<link href="style.css" media="screen" type="text/css" rel="stylesheet" />
+		<link rel="shortcut icon" href="favicon.png" />
 		<script type="text/javascript" src="cordova.js"></script>
 		<script type="text/javascript" src="jquery.js"></script>
 		<script type="text/javascript" src="orchestrator.js"></script>
 		<script type="text/javascript" src="javascript.js"></script>
 	</head>
-	<body onload="startup()">
+	<body onload="startup()" class="loading">
 		<div id="loading"></div>
-		<p align="center"><img src="favicon.png" /></p>
-		<input placeholder="CHAVE DE ACESSO" type='number' id='codigo' /><button id='comando'>hhh</button>
+		<p align="center">
+			<img src="favicon.png" />
+		</p>
+		<input placeholder="CHAVE DE ACESSO" type='text' id='codigo' min='0' />
+		<button id='comando'></button>
 	</body>
 </html>

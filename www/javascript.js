@@ -1,5 +1,29 @@
 ﻿
-			alert('asdasdas');
+		var ais;
+
+		function startup(){
+			loading(false);
+			$('#comando').click(function(){
+				if($('#codigo').val().length){
+					linhaDigitavel();
+				}else{
+					codigoDeBarras();
+				}
+			});
+			$('#codigo').keyup(codigo);
+			codigo();
+			loading(true);
+			ais = new orchestrator(function(status){
+				loading(false);
+			},false,"192.168.0.19","9050","JDE","JDE");	
+		}
+
+		function codigo(){
+			let chave = $('#codigo').val().replace(/\D/g,'');
+			$('#comando').text(chave.length?"CONSULTAR DIGITACAO":"LER CODIGO DE BARRAS");
+			$('#codigo').val(chave);
+		}
+
 		function loading(status){
 			if(status){
 				$('body').addClass("loading");
@@ -7,8 +31,8 @@
 				$('body').removeClass("loading");
 			}
 		}
+
 		function digitoVerificador(chave){
-			chave = chave.replace(/[^\d]/,'');
 			if(chave.length!=44){
 				return(false);
 			}else{
@@ -26,6 +50,7 @@
 				return(chave[43]==digito);
 			}
 		}
+
 		function chaveDeAcesso(consulta){
 			loading(true);
 			ais.FornecedoresOffLine5(function(code,data){
@@ -35,14 +60,16 @@
 				alert(consulta);
 			},{nfe:consulta});
 		}
+
 		function linhaDigitavel(){
 			if(digitoVerificador($('#codigo').val())){
 				chaveDeAcesso($('#codigo').val());
 			}else{
-				alert("A CHAVE DE ACESSO INFORMDA � INV�LIDA");
+				alert("A CHAVE DE ACESSO INFORMDA E INVALIDA");
 				$('#codigo').focus();
 			}
 		}
+
 		function codigoDeBarras(){
 			cordova.plugins.barcodeScanner.scan(
 				function (result) {
@@ -50,7 +77,7 @@
 						if(digitoVerificador(result.text)){
 							chaveDeAcesso(result.text);
 						}else{
-							alert("O CODIGO DE BARRAS LIDO N�O � CHAVE DE ACESSO");
+							alert("O CODIGO DE BARRAS LIDO NaO E CHAVE DE ACESSO");
 							codigoDeBarras();
 						}
 					}
@@ -73,24 +100,4 @@
 					disableSuccessBeep: false // iOS and Android
 				}
 			);
-		}
-		function codigo(){
-			$('#comando').text($('#codigo').val().length?"CONSULTAR DIGITACAO":"LER CODIGO DE BARRAS");
-		}
-		var ais;
-		function startup(){
-			$('#comando').click(function(){
-				alert('oi');
-				if($('#codigo').val().length){
-					linhaDigitavel();
-				}else{
-					codigoDeBarras();
-				}
-			});
-			$('#codigo').keyup(codigo);
-			codigo();
-			loading(true);
-			//ais = new orchestrator(function(status){
-				loading(false);
-			//},"192.168.0.19","9050","JDE","JDE");
 		}
