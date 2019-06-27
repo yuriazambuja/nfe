@@ -1,0 +1,102 @@
+
+		* {
+			box-sizing:border-box;
+			font-family: verdana;
+			user-select: none;
+		}
+		html, body {
+			margin:0;
+			font-size:12px;
+			padding:0 10px;
+			background:#eee;
+		}
+		html {
+			overflow-y:hidden;
+		}
+		input, button {
+			width:100%;
+			padding:10px;
+			margin:10px 0;
+		}
+		label {
+			display:block;
+			margin-top:15px;
+			font-weight:bold;
+		}
+		input {
+			border-radius:4px;
+			box-shadow: 1px 1px 2px #333333;
+			background: #fff;
+			border:1px solid #000000;
+		}
+		input[disabled] {
+			background: #eee;
+			border-color: #ccc;
+			box-shadow: none;
+			color:black;
+		}
+		button {
+			font-weight:bold;
+			border-radius:4px;
+			box-shadow: 1px 1px 2px #333333;
+			background: #B5D6FF;
+			border:1px solid #000000;
+			color:black;
+		}
+		button:active {
+			padding-left:15px;
+		}
+		#codigo {
+			border-radius:4px 0 0 4px;
+			width:calc(100% - 200px);
+			border-right:none;
+		}
+		#comando{
+			background: #B5D6FF;
+			color:black;
+			border-radius:0 4px 4px 0;
+			border-left:none;
+			width:200px;
+		}
+		#loading {
+			background-image:url(loading.gif);
+			background-color:black;
+			background-repeat:no-repeat;
+			background-position:center;
+			position:fixed;
+			width:100%;
+			height:100%;
+			left:0;
+			top:0;
+			opacity:0.8;
+			display:none;
+		}
+		.loading #loading {
+			display:block;
+		}
+		@media only screen and (max-width:629px) {
+			#codigo {
+				width:100%;
+				border-radius:4px 4px 0 0;
+				border:1px solid #000000;
+				margin-bottom:0;
+				border-bottom:0;
+			}
+			#comando{
+				width:100%;
+				border-radius:0 0 4px 4px;
+				border:1px solid #000000;
+				border-top:0;
+				margin-top:0;
+			}
+		}
+		@media only screen and (min-width:629px) {
+			#consultar {
+				width: calc(50% - 10px);
+				float: left;
+			}
+			#confirmar {
+				width: calc(50% - 10px);
+				float: right;
+			}
+		}
