@@ -28,7 +28,7 @@
 
 		function codigo(){
 			chave = $('#codigo').val().replace(/\D/g,'');
-			$('#comando').text(chave?"CONSULTAR DIGITACAO":"LER CODIGO DE BARRAS");
+			$('#comando').text(chave?"CONSULTAR DIGITAÇÃO":"LER CÓDIGO DE BARRAS");
 			$('#codigo').val(chave);
 		} 
 
@@ -65,7 +65,7 @@
 			if(digitoVerificador($('#codigo').val())){
 				chaveDeAcesso($('#codigo').val());
 			}else{
-				alert("A CHAVE DE ACESSO INFORMDA E INVALIDA");
+				alert("A CHAVE DE ACESSO INFORMDA É INVÁLIDA");
 				$('#codigo').focus();
 			}
 		}
@@ -77,7 +77,7 @@
 						if(digitoVerificador(result.text)){
 							chaveDeAcesso(result.text);
 						}else{
-							alert("O CODIGO DE BARRAS LIDO NaO E CHAVE DE ACESSO");
+							alert("O CÓDIGO DE BARRAS LIDO NÃO É CHAVE DE ACESSO");
 							codigoDeBarras();
 						}
 					}
@@ -89,8 +89,8 @@
 					//preferFrontCamera : true, // iOS and Android
 					//showFlipCameraButton : true, // iOS and Android
 					//saveHistory: true, // Android, save scan history (default false)
-					//formats : "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
-					//orientation : "landscape", // Android only (portrait|landscape), default unset so it rotates with the device
+					formats : "CODE_128,ITF", //"QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
+					orientation : "landscape", // Android only (portrait|landscape), default unset so it rotates with the device
 					showTorchButton : false, // iOS and Android
 					torchOn: false, // Android, launch with the torch switched on (if available)
 					prompt : " ",

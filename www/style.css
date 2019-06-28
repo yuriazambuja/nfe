@@ -1,8 +1,8 @@
 
 		* {
 			box-sizing:border-box;
-			font-family: verdana;
-			user-select: none;
+			font-family:verdana;
+			user-select:none;
 		}
 		html, body {
 			margin:0;
