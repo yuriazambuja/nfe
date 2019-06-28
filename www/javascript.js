@@ -86,6 +86,9 @@
 					alert("ERRO DESCONHECIDO:" + error);
 				},
 				{
+					
+					SCAN_WIDTH: 50,
+					SCAN_HEIGHT: 50,
 					//preferFrontCamera : true, // iOS and Android
 					//showFlipCameraButton : true, // iOS and Android
 					//saveHistory: true, // Android, save scan history (default false)
