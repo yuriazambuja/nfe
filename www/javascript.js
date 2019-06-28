@@ -1,29 +1,6 @@
 ﻿
 		var ais;
 
-		function startup(){
-			loading(false);
-			$('#comando').click(function(){
-				if($('#codigo').val().length){
-					linhaDigitavel();
-				}else{
-					codigoDeBarras();
-				}
-			});
-			$('#codigo').keyup(codigo);
-			codigo();
-			loading(true);
-			ais = new orchestrator(function(status){
-				loading(false);
-			},false,"192.168.0.19","9050","JDE","JDE");	
-		}
-
-		function codigo(){
-			let chave = $('#codigo').val().replace(/\D/g,'');
-			$('#comando').text(chave.length?"CONSULTAR DIGITACAO":"LER CODIGO DE BARRAS");
-			$('#codigo').val(chave);
-		}
-
 		function loading(status){
 			if(status){
 				$('body').addClass("loading");
@@ -32,13 +9,36 @@
 			}
 		}
 
+		function startup(){
+			codigo();
+			$('#codigo').keyup(codigo);
+			$('#comando').click(comando);
+			ais = new orchestrator(function(status){
+				loading(false);
+			},false,"192.168.0.19","9050","JDE","JDE");	
+		}
+
+		function comando(){
+			if($('#codigo').val()){
+				linhaDigitavel()
+			}else{
+				codigoDeBarras();
+			}
+		}
+
+		function codigo(){
+			chave = $('#codigo').val().replace(/\D/g,'');
+			$('#comando').text(chave?"CONSULTAR DIGITACAO":"LER CODIGO DE BARRAS");
+			$('#codigo').val(chave);
+		} 
+
 		function digitoVerificador(chave){
 			if(chave.length!=44){
 				return(false);
 			}else{
-				let fator = [2,3,4,5,6,7,8,9];
-				let digito = 0;
-				for(let i=0;i<43;i++){
+				fator = [2,3,4,5,6,7,8,9];
+				digito = 0;
+				for(i=0;i<43;i++){
 					digito+=chave[43-i]*fator[i%fator.length];
 				}
 				digito%=11;
@@ -101,3 +101,40 @@
 				}
 			);
 		}
+/*
+		var ais;
+
+		function startup(){
+			loading(false);
+			$('#comando').click(function(){
+				if($('#codigo').val().length){
+					linhaDigitavel();
+				}else{
+					codigoDeBarras();
+				}
+			});
+			$('#codigo').keyup(codigo);
+			codigo();
+			loading(true);
+			ais = new orchestrator(function(status){
+				loading(false);
+			},false,"192.168.0.19","9050","JDE","JDE");	
+		}
+
+		function codigo(){
+			let chave = $('#codigo').val().replace(/\D/g,'');
+			$('#comando').text(chave.length?"CONSULTAR DIGITACAO":"LER CODIGO DE BARRAS");
+			$('#codigo').val(chave);
+		}
+
+		function loading(status){
+			if(status){
+				$('body').addClass("loading");
+			}else{
+				$('body').removeClass("loading");
+			}
+		}
+
+
+
+*/

@@ -1,8 +1,12 @@
 function orchestrator(done,ssl,host,port,user,pswd){
-    let self = this;
-    let call = function(done,post,path){
-        let http = new XMLHttpRequest();
-        http.open(path?"POST":"GET","http"+(ssl?'s':'')+"://"+host+":"+port+"/jderest/"+(path?"v2/orchestrator/"+path:"discover"),true);
+    self = this;
+    call = function(done,post,path){
+        http = new XMLHttpRequest();
+        url = "http"+(ssl?'s':'')+"://"+host+":"+port+"/jderest/"+(path?"v2/orchestrator/"+path:"discover");
+        console.log(path?"POST":"GET");
+        console.log(url);
+        console.log(JSON.stringify(post?post:{}));
+        http.open(path?"POST":"GET",url,true);
         http.setRequestHeader("Content-Type","application/json");	
         http.setRequestHeader("Authorization","Basic "+btoa(user+":"+pswd));
         http.onreadystatechange = function(){
@@ -18,7 +22,7 @@ function orchestrator(done,ssl,host,port,user,pswd){
     };
     call(function(code,data){
         if(200<=code&&code<=299){
-            for(let loop in data.orchestrations){
+            for(loop in data.orchestrations){
                 self[data.orchestrations[loop].name] = function(done,post){
                     return(call(done,post,data.orchestrations[loop].name));
                 };
