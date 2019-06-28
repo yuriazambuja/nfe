@@ -4,6 +4,9 @@
 			font-family:verdana;
 			user-select:none;
 		}
+		*:focus {
+			outline:none;
+		}
 		html, body {
 			margin:0;
 			font-size:12px;

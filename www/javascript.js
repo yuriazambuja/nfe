@@ -86,9 +86,6 @@
 					alert("ERRO DESCONHECIDO:" + error);
 				},
 				{
-					
-					SCAN_WIDTH: 50,
-					SCAN_HEIGHT: 50,
 					//preferFrontCamera : true, // iOS and Android
 					//showFlipCameraButton : true, // iOS and Android
 					//saveHistory: true, // Android, save scan history (default false)
@@ -97,47 +94,9 @@
 					showTorchButton : false, // iOS and Android
 					torchOn: false, // Android, launch with the torch switched on (if available)
 					prompt : " ",
-					//prompt : "POSICIONE O CÓDIGO DE BARRAS NA ÁREA INDICADA", // Android
 					resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
 					disableAnimations : true, // iOS
 					disableSuccessBeep: false // iOS and Android
 				}
 			);
 		}
-/*
-		var ais;
-
-		function startup(){
-			loading(false);
-			$('#comando').click(function(){
-				if($('#codigo').val().length){
-					linhaDigitavel();
-				}else{
-					codigoDeBarras();
-				}
-			});
-			$('#codigo').keyup(codigo);
-			codigo();
-			loading(true);
-			ais = new orchestrator(function(status){
-				loading(false);
-			},false,"192.168.0.19","9050","JDE","JDE");	
-		}
-
-		function codigo(){
-			let chave = $('#codigo').val().replace(/\D/g,'');
-			$('#comando').text(chave.length?"CONSULTAR DIGITACAO":"LER CODIGO DE BARRAS");
-			$('#codigo').val(chave);
-		}
-
-		function loading(status){
-			if(status){
-				$('body').addClass("loading");
-			}else{
-				$('body').removeClass("loading");
-			}
-		}
-
-
-
-*/
