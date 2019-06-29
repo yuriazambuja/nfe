@@ -18,6 +18,7 @@ function orchestrator(done,ssl,host,port,user,pswd){
                 }
             }
         };
+        http.timeout = 2000;
         http.send(JSON.stringify(post?post:{}));
     };
     call(function(code,data){
