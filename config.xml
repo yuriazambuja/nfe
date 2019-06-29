@@ -11,9 +11,7 @@
   <preference name="android-minSdkVersion" value="15" />
   <preference name="android-targetSdkVersion" value="26" />
   <plugin name="cordova-plugin-whitelist" />
-  <plugin spec="https://github.com/Telerik-Verified-Plugins/BarcodeScanner.git" source="git">
-    <param name="CAMERA_USAGE_DESCRIPTION" value="To scan barcodes." />
-  </plugin>
+  <plugin name="cordova-plugin-barcodescanner" />
   <plugin name="cordova-android-support-gradle-release">
     <variable name="ANDROID_SUPPORT_VERSION" value="26.0.0"/>
   </plugin>
