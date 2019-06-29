@@ -16,7 +16,7 @@
   <preference name="StatusBarStyle" value="default" />
   <preference name="StatusBarBackgroundColor" value="#FFD700" />
   <preference name="android-minSdkVersion" value="15" />
-  <preference name="android-targetSdkVersion" value="25" />
+  <preference name="android-targetSdkVersion" value="26" />
   <plugin name="cordova-plugin-geolocation" spec="2.4.1" />
   <plugin name="cordova-plugin-whitelist" />
   <plugin spec="https://github.com/Telerik-Verified-Plugins/BarcodeScanner.git" source="git">
@@ -30,7 +30,7 @@
     <variable name="ANDROID_SUPPORT_VERSION" value="26.0.0"/>
   </plugin>
   <access origin="*" />
-  <plugin name="cordova-plugin-zxing" />
+  <plugin name="cordova-plugin-cszbar" />
   <!--<engines>
     <engine name="android" spec="^6.3.0" />
   </engines>-->
