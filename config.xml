@@ -30,7 +30,7 @@
     <variable name="ANDROID_SUPPORT_VERSION" value="26.0.0"/>
   </plugin>
   <access origin="*" />
-  <plugin name="cordova-plugin-cszbar" />
+  <plugin name="atid-barcode-rfid" />
   <!--<engines>
     <engine name="android" spec="^6.3.0" />
   </engines>-->
