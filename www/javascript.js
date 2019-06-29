@@ -71,7 +71,7 @@
 		}
 
 		function codigoDeBarras(){
-			return window.plugins.GMVBarcodeScanner.scan({},function(err,result) {
+			return cordova.plugins.GMVBarcodeScanner.scan({},function(err,result) {
 				if(err){
 					alert(err);
 				}else{
