@@ -71,12 +71,7 @@
 		}
 
 		function codigoDeBarras(){
-			return atid.barcode.onDecode(function(scanResults){
-				alert(scanResults.type + ' ' + scanResults.barcode);
-			}, function(msg){
-				alert(msg);
-			});
-			cordova.plugins.barcodeScanner.scan(
+			return cordova.plugins.barcodeScanner.scan(
 				function (result) {
 					if(!result.cancelled){
 						if(digitoVerificador(result.text)){
