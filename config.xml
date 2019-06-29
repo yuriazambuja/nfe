@@ -1,6 +1,6 @@
 <widget id="br.com.azamba.nfe" version="1.0" versionCode="1">
   <platform name="android" />
-  <name>Recebimento NFe</name>
+  <name>Recebimento</name>
   <icon src="www/favicon.png" />
   <access origin="*" />
   <preference name="permissions" value="none" />
@@ -15,5 +15,4 @@
   <plugin name="cordova-android-support-gradle-release">
     <variable name="ANDROID_SUPPORT_VERSION" value="26.0.0"/>
   </plugin>
-  <access origin="*" />
 </widget>
