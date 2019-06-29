@@ -30,6 +30,7 @@
   <plugin name="cordova-android-support-gradle-release">
     <variable name="ANDROID_SUPPORT_VERSION" value="26.0.0"/>
   </plugin>
+  <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
   <access origin="*" />
   <!--<engines>
     <engine name="android" spec="^6.3.0" />
