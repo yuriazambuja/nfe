@@ -2,11 +2,7 @@ function orchestrator(done,ssl,host,port,user,pswd){
     self = this;
     call = function(done,post,path){
         http = new XMLHttpRequest();
-        url = "http"+(ssl?'s':'')+"://"+host+":"+port+"/jderest/"+(path?"v2/orchestrator/"+path:"discover");
-        console.log(path?"POST":"GET");
-        console.log(url);
-        console.log(JSON.stringify(post?post:{}));
-        http.open(path?"POST":"GET",url,true);
+        http.open(path?"POST":"GET","http"+(ssl?'s':'')+"://"+host+":"+port+"/jderest/"+(path?"v2/orchestrator/"+path:"discover"),true);
         http.setRequestHeader("Content-Type","application/json");	
         http.setRequestHeader("Authorization","Basic "+btoa(user+":"+pswd));
         http.onreadystatechange = function(){
@@ -18,7 +14,7 @@ function orchestrator(done,ssl,host,port,user,pswd){
                 }
             }
         };
-        http.timeout = 2000;
+        http.timeout = 5000;
         http.send(JSON.stringify(post?post:{}));
     };
     call(function(code,data){
