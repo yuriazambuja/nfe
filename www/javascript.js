@@ -71,26 +71,11 @@
 		}
 
 		function codigoDeBarras(){
-			return window.plugins.zxingPlugin.scan({
-    'prompt_message':'Scan a barcode', // Change the info message. A blank message ('') will show a default message
-    'orientation_locked':true, // Lock the orientation screen
-    'camera_id':0, // Choose the camera source
-    'beep_enabled':true, // Enables a beep after the scan
-    'scan_type':'normal', // Types of scan mode: normal = default black with white background / inverted = white bars on dark background / mixed = normal and inverted modes
-    'barcode_formats':[
-        'QR_CODE',
-        'CODE_39',
-        'CODE_128'], // Put a list of formats that the scanner will find. A blank list ([]) will enable scan of all barcode types
-    'extras':{} // Additional extra parameters. See [ZXing Journey Apps][1] IntentIntegrator and Intents for more details
-}, function (error) {
-					alert("OK:" + error);
-				}, function (error) {
-					alert("ERRO:" + error);
-				});
-
-
-
-
+			return atid.barcode.onDecode(function(scanResults){
+				alert(scanResults.type + ' ' + scanResults.barcode);
+			}, function(msg){
+				alert(msg);
+			});
 			cordova.plugins.barcodeScanner.scan(
 				function (result) {
 					if(!result.cancelled){
