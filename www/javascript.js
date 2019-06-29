@@ -13,9 +13,9 @@
 			codigo();
 			$('#codigo').keyup(codigo);
 			$('#comando').click(comando);
-			ais = new orchestrator(function(status){
-				loading(false);
-			},false,"192.168.0.19","9050","JDE","JDE");	
+			//ais = new orchestrator(function(status){
+			//	loading(false);
+			//},false,"192.168.0.19","9050","JDE","JDE");	
 		}
 
 		function comando(){
