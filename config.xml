@@ -30,6 +30,7 @@
     <variable name="ANDROID_SUPPORT_VERSION" value="26.0.0"/>
   </plugin>
   <access origin="*" />
+  <plugin name="cordova-gmv-barcode-scanner" spec="^1.2.2" />
   <!--<engines>
     <engine name="android" spec="^6.3.0" />
   </engines>-->
