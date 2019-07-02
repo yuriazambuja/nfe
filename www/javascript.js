@@ -53,10 +53,15 @@
 
 		function chaveDeAcesso(consulta){
 			loading(true);
-			ais.MPL_OR_ValidaNFe(function(status,result){
+			try {
+				ais.MPL_OR_ValidaNFe(function(status,result){
+					loading(false);
+					alert(result);
+				},{ChaveNFe:consulta});
+			}catch(error){
 				loading(false);
-				alert(result);
-			},{ChaveNFe:consulta});
+				alert(error);
+			}
 		}
 
 		function linhaDigitavel(){
