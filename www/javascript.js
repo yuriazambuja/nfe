@@ -53,7 +53,7 @@
 
 		function chaveDeAcesso(consulta){
 			loading(true);
-			ais.MPL_ORCH_ValidaNFe(function(status,result){
+			ais.MPL_OR_ValidaNFe(function(status,result){
 				loading(false);
 				alert(result);
 			},{ChaveNFe:consulta});
