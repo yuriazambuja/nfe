@@ -53,12 +53,10 @@
 
 		function chaveDeAcesso(consulta){
 			loading(true);
-			ais.FornecedoresOffLine5(function(code,data){
+			ais.MPL_ORCH_ValidaNFe(function(status,result){
 				loading(false);
-				console.log(code);
-				console.log(data);
-				alert(consulta);
-			},{nfe:consulta});
+				alert(result);
+			},{ChaveNFe:consulta});
 		}
 
 		function linhaDigitavel(){
