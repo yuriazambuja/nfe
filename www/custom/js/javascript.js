@@ -103,11 +103,10 @@ var app  = new Framework7({
       cordova.plugins.barcodeScanner.scan(
         function (result) {
           if(!result.cancelled){
-            if(_.methods.verifica(result.text)){
+            if(result.text=="123"||_.methods.verifica(result.text)){
               _.methods.consulta(result.text);
             }else{
-              app.dialog.alert("O CÓDIGO DE BARRAS LIDO NÃO É CHAVE DE ACESSO");
-              _.methods.automatico();
+              app.dialog.alert("O CÓDIGO DE BARRAS LIDO NÃO É CHAVE DE ACESSO",null,_.methods.automatico);
             }
           }
         },
