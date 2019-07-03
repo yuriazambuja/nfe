@@ -138,10 +138,9 @@ var app  = new Framework7({
     }
   ]
 });
-
-// Init/Create main view
-app.views.create('.view-main');
-
-app.toggle.get('#type').checked = window.localStorage.getItem("type")=="true";
-app.methods.recupera("host","port","user");
-$$("#login").on('click',app.methods.autentica);
+document.addEventListener("deviceready",function(){
+  app.views.create('.view-main');
+  app.toggle.get('#type').checked = window.localStorage.getItem("type")=="true";
+  app.methods.recupera("host","port","user");
+  $$("#login").on('click',app.methods.autentica);
+}, false);
