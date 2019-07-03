@@ -39,7 +39,7 @@ var app  = new Framework7({
     autentica:function(){
       _ = this;
       window.localStorage.setItem("type",_.toggle.get('#type').checked);
-      _.methods.recupera("host","port","user");
+      _.methods.guarda("host","port","user");
       _.preloader.show();
       try {
         _.data.api = new orchestrator(function(status){
