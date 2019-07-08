@@ -1,7 +1,7 @@
 <widget id="br.com.azamba.nfe" version="1.0" versionCode="1">
   <platform name="android" />
   <name>Recebimento</name>
-  <icon src="www/favicon.png" />
+  <icon src="www/custom/img/favicon.png" />
   <access origin="*" />
   <preference name="permissions" value="none" />
   <preference name="prerendered-icon" value="true" />
