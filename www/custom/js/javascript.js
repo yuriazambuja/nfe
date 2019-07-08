@@ -17,6 +17,9 @@ var app  = new Framework7({
       api: null,
     };
   },
+  dialog:{
+      buttonCancel: 'Cancelar',
+  },
   // App root methods
   methods: {
     recupera:function(){
@@ -62,9 +65,10 @@ var app  = new Framework7({
     verifica:function(chave){
       chave = chave.replace(/[^\d]+/g,'');
       agora = new Date();
+      uf = [11,12,13,14,15,16,17,21,22,23,24,25,26,27,28,29,31,32,33,35,41,42,43,50,51,52,53];
       if(chave.length!=44){
         return(false); // TAMANHO INVALIDO
-      }else if([11,12,13,14,15,16,17,21,22,23,24,25,26,27,28,29,31,32,33,35,41,42,43,50,51,52,53].indexOf(Number(chave.substring(0,2)))<0){
+      }else if(uf.indexOf(Number(chave.substring(0,2)))<0){
         return(false); // UF IBGE INVALIDA
       }else if(Number(chave.substring(4,6))>12){
         return(false); // MES INVALIDO
