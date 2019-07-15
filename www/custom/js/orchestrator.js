@@ -19,7 +19,7 @@ function orchestrator(done,type,host,port,user,pswd){
     };
     call(function(code,data){
         if(200<=code&&code<=299){
-            for(loop in data.orchestrations){
+            for(let loop in data.orchestrations){
                 self[data.orchestrations[loop].name] = function(done,post){
                     return(call(done,post,data.orchestrations[loop].name));
                 };

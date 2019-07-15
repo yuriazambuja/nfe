@@ -107,6 +107,8 @@ var app  = new Framework7({
                   }
                 },{AccessKey:consulta});
               });
+            }else if(result.Status=='R'){
+              alert("NF-E JÁ RECEBIDA");
             }else{
               _.dialog.alert("NF-E NÃO LIBERADA PARA RECEBIMENTO: "+result.Status);
             }
