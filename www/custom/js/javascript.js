@@ -79,7 +79,7 @@ var app  = new Framework7({
         digito = 0;
         for(i=0;i<43;i++){
           digito+=chave[42-i]*fator[i%fator.length];
-        };
+        }
         digito%=11;
         if (digito<=1) {
           digito=0;
@@ -92,13 +92,20 @@ var app  = new Framework7({
     consulta:function(consulta){
       _ = this;
       _.preloader.show();
-      try {
-        _.data.api.MPL_OR_ValidaNFe(function(status,result){ // 35190533194978000352550100001559521180715907
+      try{
+        _.data.api.MPL_OR_ValidaNFe(function(status,result){
           _.preloader.hide();
           if(status==200){
             if(result.Status=='A'){
               _.dialog.confirm("CONFIRMA RECEBIMENTO DA NF-E?",null,function(){
-                _.dialog.alert("NF-E RECEBIDA COM SUCESSO");
+                _.data.api.MPL_OR_RecebimentoAutomaticoExt(function(status,result){
+                  _.preloader.hide();
+                  if(status==200){
+                    _.dialog.alert("NF-E ENCAMINHADA PARA RECEBIMENTO AUTOMÁTICO COM SUCESSO");
+                  }else{
+                    alert("ERRO DE COMUNICAÇÃO: "+status);
+                  }
+                },{AccessKey:consulta});
               });
             }else{
               _.dialog.alert("NF-E NÃO LIBERADA PARA RECEBIMENTO: "+result.Status);
@@ -126,7 +133,7 @@ var app  = new Framework7({
       cordova.plugins.barcodeScanner.scan(
         function (result) {
           if(!result.cancelled){
-            if(result.text=="123"||_.methods.verifica(result.text)){
+            if(_.methods.verifica(result.text)){
               _.methods.consulta(result.text);
             }else{
               _.dialog.alert("O CÓDIGO DE BARRAS LIDO NÃO É CHAVE DE ACESSO",null,_.methods.automatico);
@@ -145,7 +152,7 @@ var app  = new Framework7({
           showTorchButton: false, // iOS and Android
           torchOn: false, // Android, launch with the torch switched on (if available)
           prompt: " ",
-          resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+          resultDisplayDuration: 0, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
           disableAnimations: true, // iOS
           disableSuccessBeep: false // iOS and Android
         }
