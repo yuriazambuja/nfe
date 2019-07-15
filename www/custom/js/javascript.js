@@ -103,17 +103,17 @@ var app  = new Framework7({
                   if(status==200){
                     _.dialog.alert("NF-E ENCAMINHADA PARA RECEBIMENTO AUTOMÁTICO COM SUCESSO");
                   }else{
-                    alert("ERRO DE COMUNICAÇÃO: "+status);
+                    _.dialog.alert("ERRO DE COMUNICAÇÃO: "+status);
                   }
                 },{AccessKey:consulta});
               });
             }else if(result.Status=='R'){
-              alert("NF-E JÁ RECEBIDA");
+              _.dialog.alert("NF-E JÁ RECEBIDA");
             }else{
               _.dialog.alert("NF-E NÃO LIBERADA PARA RECEBIMENTO: "+result.Status);
             }
           }else{
-            alert("ERRO DE COMUNICAÇÃO: "+status);
+            _.dialog.alert("ERRO DE COMUNICAÇÃO: "+status);
           }
         },{ChaveNFe:consulta});
       }catch(error){
