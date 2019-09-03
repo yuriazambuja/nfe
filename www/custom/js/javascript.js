@@ -108,9 +108,11 @@ var app  = new Framework7({
                 },{AccessKey:consulta});
               });
             }else if(result.Status=='R'){
-              _.dialog.alert("NF-E JÁ RECEBIDA");
+              _.dialog.alert("NF-E COM RECEBIMENTO JÁ SOLICITADO");
+            }else if(result.Status=='N'){
+              _.dialog.alert("NF-E COM XML AINDA NÃO RECUPERADO");
             }else{
-              _.dialog.alert("NF-E NÃO LIBERADA PARA RECEBIMENTO: "+result.Status);
+              _.dialog.alert("NF-E NÃO LIBERADA PARA RECEBIMENTO");
             }
           }else{
             _.dialog.alert("ERRO DE COMUNICAÇÃO: "+status);
