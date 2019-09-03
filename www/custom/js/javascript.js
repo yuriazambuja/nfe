@@ -111,6 +111,8 @@ var app  = new Framework7({
               _.dialog.alert("NF-E COM RECEBIMENTO JÁ SOLICITADO");
             }else if(result.Status=='N'){
               _.dialog.alert("NF-E COM XML AINDA NÃO RECUPERADO");
+            }else if(result.Status=='P'){
+              _.dialog.alert("NF-E SEM PEDIDO DE COMPRA ASSOCIADO");
             }else{
               _.dialog.alert("NF-E NÃO LIBERADA PARA RECEBIMENTO");
             }
