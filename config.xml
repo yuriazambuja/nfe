@@ -6,7 +6,7 @@
   <preference name="permissions" value="none" />
   <preference name="prerendered-icon" value="true" />
   <!--<preference name="phonegap-version" value="cli-7.0.1" />-->
-  <preference name="phonegap-version" value="cli-9.0.0" />
+  <preference name="phonegap-version" value="cli-8.0.0" />
   <preference name="android-windowSoftInputMode" value="adjustPan" />
   <preference name="DisallowOverscroll" value="true" />
   <preference name="android-minSdkVersion" value="15" />
