@@ -1,0 +1,56 @@
+<template>
+  <div class="page" data-name="form">
+  <div class="navbar">
+    <div class="navbar-inner sliding">
+      <div class="left">
+        <a href="#" class="link back">
+          <i class="icon icon-back"></i>
+          <span class="ios-only">Cancelar</span>
+        </a>
+      </div>
+      <div class="title">Pedido de Compra</div>
+    </div>
+  </div>
+  <div class="page-content">
+      <div class="block-title">Itens a Verificar</div>
+      <div class="card data-table">
+          <table>
+            <thead>
+              <tr>
+                <th class="label-cell">Descrição do Item</th>
+                <th class="numeric-cell">Qtd.</th>
+                <th class="label-cell">U.M.</th>
+              </tr>
+            </thead>
+            <tbody>
+            {{#each pedido}}
+              <tr>
+                <td class="label-cell">{{F55MPL02_DSC2}}</td>
+                <td class="numeric-cell">{{F55MPL02_UORG}}</td>
+                <td class="label-cell">{{F55MPL02_UOM}}</td>
+              </tr>
+            {{/each}}
+            </tbody>
+          </table>
+        </div>
+
+        <div class="list no-hairlines-md">
+          <ul>
+              <li>
+                <a href="#" class="list-button" id="confirma">Confirmar Recebimento</a>
+              </li>
+          </ul>
+        </div>
+    
+  </div>
+</div>
+</template><script>
+  return {
+    on: {
+      pageAfterIn:function(e,page){
+        _ = this;
+        $$("#confirma").on('click',function(){_.$app.methods.confirma(_.$route.params.nfe);});
+      }
+  }
+}
+</script>

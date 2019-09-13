@@ -1,0 +1,66 @@
+<template>
+    <div class="page" data-name="form">
+    <div class="navbar">
+      <div class="navbar-inner sliding">
+        <div class="left">
+          <a href="#" class="link back">
+            <i class="icon icon-back"></i>
+            <span class="ios-only">Finalizar</span>
+          </a>
+        </div>
+        <div class="title">Boleto Bancário</div>
+      </div>
+    </div>
+    <div class="page-content">
+      <p align="center">
+        <img src="./custom/img/boleto.png" />
+      </p>
+      <div class="block-title">Associação do Boleto Bancário</div>
+      <div class="list no-hairlines-md">
+        <ul>
+          <li class="item-content item-input" id="block">
+            <div class="item-inner">
+              <div class="item-title item-floating-label">Linha Digitável</div>
+              <div class="item-input-wrap">
+                <input type="tel" class="input-with-value" id="keyboard_bb" value="" />
+              </div>
+            </div>
+          </li>
+          <li>
+            <a href="#" class="list-button" id="command_bb"></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  </template>
+<script>
+  return {
+    on: {
+      pageInit: function (e, page) {
+        alternate_bb = function () {
+          return cordova && cordova.plugins && cordova.plugins.barcodeScanner && $$("#keyboard_bb").val().trim() == "";
+        }
+        command_bb = function (_) {
+          if (alternate_bb()) {
+            _.methods.automatico_bb();
+          } else {
+            _.methods.manual_bb($$('#keyboard_bb').val());
+          }
+        };
+        keyboard_bb = function () {
+          $$("#command_bb").text(
+            alternate_bb() ? "Ler Código de Barras" : "Consultar Linha Digitável"
+          );
+        };
+        $$("#keyboard_bb").on('keyup', function () { keyboard_bb(); });
+        $$("#command_bb").on('click', function () { command_bb(page.app) });
+      },
+      pageBeforeIn: function (e, page) {
+        $$("#keyboard_bb").val("");
+        $$("#block_bb").removeClass("item-input-with-value");
+        keyboard_bb();
+      }
+    }
+  }
+</script>

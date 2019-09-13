@@ -1,0 +1,66 @@
+<template>
+  <div class="page" data-name="form">
+  <div class="navbar">
+    <div class="navbar-inner sliding">
+      <div class="left">
+        <a href="#" class="link back">
+          <i class="icon icon-back"></i>
+          <span class="ios-only">Sair</span>
+        </a>
+      </div>
+      <div class="title">Nota Fiscal</div>
+    </div>
+  </div>
+  <div class="page-content">
+    <p align="center">
+        <img src="./custom/img/mpl-logo.png" />
+      </p>
+    <div class="block-title">Identificação da NFe</div>
+    <div class="list no-hairlines-md">
+      <ul>
+        <li class="item-content item-input" id="block">
+          <div class="item-inner">
+            <div class="item-title item-floating-label">Chave de Acesso</div>
+            <div class="item-input-wrap">
+              <input type="tel" class="input-with-value" id="keyboard" value="" />
+            </div>
+          </div>
+        </li>
+        <li>
+          <a href="#" class="list-button" id="command"></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+</template>
+<script>
+  return {
+    on: {
+      pageInit:function(e,page){
+        alternate = function(){
+          return cordova&&cordova.plugins&&cordova.plugins.barcodeScanner&&$$("#keyboard").val().trim()=="";
+        }
+        command = function(_){
+          if(alternate()){
+            _.methods.automatico();
+          }else{
+            _.methods.manual();
+          }
+        };
+        keyboard = function(){
+          $$("#command").text(
+            alternate()?"Ler Código de Barras":"Consultar Chave de Acesso"
+          );
+        };
+        $$("#keyboard").on('keyup',keyboard);
+        $$("#command").on('click',function(){command(page.app)});
+      },
+      pageBeforeIn:function(e,page){
+        $$("#keyboard").val("");
+        $$("#block").removeClass("item-input-with-value");
+        keyboard();
+      }
+  }
+}
+</script>

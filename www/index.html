@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="./custom/css/app.css">
 </head>
 <body>
-  <div id="app">
+  <form id="app">
     <!-- Status bar overlay for fullscreen mode-->
     <div class="statusbar"></div>
     <!-- Left panel with cover effect-->
@@ -80,7 +80,7 @@
                 <div class="item-inner">
                   <div class="item-title item-floating-label">Usuário</div>
                   <div class="item-input-wrap">
-                    <input type="text" class="input-with-value" />
+                    <input type="text" class="input-with-value" autocomplete="off" />
                   </div>
                 </div>
               </li>
@@ -88,7 +88,7 @@
                 <div class="item-inner">
                   <div class="item-title item-floating-label">Senha</div>
                   <div class="item-input-wrap">
-                    <input type="password" class="input-with-value" />
+                    <input type="password" class="input-with-value" value="jde" autocomplete="off" />
                   </div>
                 </div>
               </li>
@@ -105,7 +105,7 @@
                         <div class="item-inner">
                           <div class="item-title item-floating-label">Servidor</div>
                           <div class="item-input-wrap">
-                            <input type="text" class="input-with-value" />
+                            <input type="text" class="input-with-value" autocomplete="off" />
                           </div>
                         </div>
                       </li>
@@ -113,7 +113,7 @@
                         <div class="item-inner">
                           <div class="item-title item-floating-label">Porta</div>
                           <div class="item-input-wrap">
-                            <input type="number" class="input-with-value" />
+                            <input type="number" class="input-with-value" autocomplete="off" />
                           </div>
                         </div>
                       </li>
@@ -267,7 +267,7 @@
       </div>
     </div>
     -->
-  </div>
+  </form>
   <!-- Cordova -->
   <script src="./cordova.js"></script>
   <!-- Framework7 library -->
