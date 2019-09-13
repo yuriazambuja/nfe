@@ -1,4 +1,4 @@
-<widget id="br.com.azamba.nfe" version="1.0" versionCode="1">
+<widget id="br.com.mpl.recebimento" version="1.0" versionCode="1">
   <platform name="android" />
   <name>Recebimento</name>
   <icon src="www/custom/img/favicon.png" /> 
@@ -11,6 +11,7 @@
   <preference name="DisallowOverscroll" value="true" />
   <preference name="android-minSdkVersion" value="15" />
   <preference name="android-targetSdkVersion" value="26" />
+  <plugin name="cordova-plugin-screen-orientation" />
   <plugin name="cordova-plugin-whitelist" />
   <plugin spec="https://github.com/Telerik-Verified-Plugins/BarcodeScanner.git" source="git" />
   <plugin name="cordova-android-support-gradle-release">
