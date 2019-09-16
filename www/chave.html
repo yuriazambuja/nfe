@@ -13,7 +13,7 @@
   </div>
   <div class="page-content">
     <p align="center">
-        <img src="./custom/img/mpl-logo.png" />
+        <img src="./custom/img/nfe.png" />
       </p>
     <div class="block-title">Identificação da NFe</div>
     <div class="list no-hairlines-md">
@@ -45,7 +45,14 @@
           if(alternate()){
             _.methods.automatico();
           }else{
-            _.methods.manual();
+            _.methods.manual($$("#keyboard").val(),function(ok){
+              if(ok){
+                $$("#keyboard").val("");
+                $$("#block").removeClass("item-input-with-value");
+              }else{
+                $$("#keyboard").focus();
+              }
+            });
           }
         };
         keyboard = function(){

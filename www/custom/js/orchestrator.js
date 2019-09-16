@@ -7,11 +7,13 @@ function orchestrator(done,type,host,port,user,pswd){
         http.setRequestHeader("Authorization","Basic "+btoa(user+":"+pswd));
         http.onreadystatechange = function(){
             if(http.readyState===XMLHttpRequest.DONE){
+                json = null;
                 try{
-                    done(http.status,JSON.parse(http.responseText));
+                    json = JSON.parse(http.responseText);
                 }catch(e){
-                    done(http.status,null);
+                    console.log(e);
                 }
+                done(http.status,json);
             }
         };
         http.timeout = 5000;

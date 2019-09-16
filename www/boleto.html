@@ -5,7 +5,7 @@
         <div class="left">
           <a href="#" class="link back">
             <i class="icon icon-back"></i>
-            <span class="ios-only">Finalizar</span>
+            <span class="ios-only">Concluir</span>
           </a>
         </div>
         <div class="title">Boleto Bancário</div>
@@ -18,7 +18,7 @@
       <div class="block-title">Associação do Boleto Bancário</div>
       <div class="list no-hairlines-md">
         <ul>
-          <li class="item-content item-input" id="block">
+          <li class="item-content item-input" id="block_bb">
             <div class="item-inner">
               <div class="item-title item-floating-label">Linha Digitável</div>
               <div class="item-input-wrap">
@@ -43,9 +43,15 @@
         }
         command_bb = function (_) {
           if (alternate_bb()) {
-            _.methods.automatico_bb();
+            _.app.methods.automatico_bb(_.route.params.nfe);
           } else {
-            _.methods.manual_bb($$('#keyboard_bb').val());
+            _.app.methods.manual_bb(_.route.params.nfe,$$('#keyboard_bb').val(),function(ok){
+              if(ok){
+                $$("#keyboard_bb").val("");
+                $$("#block_bb").removeClass("item-input-with-value");
+              }
+              $$("#keyboard_bb").focus();
+            });
           }
         };
         keyboard_bb = function () {
@@ -54,7 +60,7 @@
           );
         };
         $$("#keyboard_bb").on('keyup', function () { keyboard_bb(); });
-        $$("#command_bb").on('click', function () { command_bb(page.app) });
+        $$("#command_bb").on('click', function () { command_bb(page) });
       },
       pageBeforeIn: function (e, page) {
         $$("#keyboard_bb").val("");

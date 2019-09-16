@@ -7,10 +7,10 @@ var app  = new Framework7({
   id: 'br.com.mpl.recebimento', // App bundle ID
   name: 'Recebimento', // App name
   theme: 'ios', // Automatic theme detection
-  //view: {
-  //  pushState: true,
-  //  pushStateSeparator:'#',
-  //},
+  view: {
+    //pushState: true,
+    pushStateSeparator:'#',
+  },
   // App root data
   data: function () {
     return {
@@ -66,13 +66,13 @@ var app  = new Framework7({
       agora = new Date();
       uf = [11,12,13,14,15,16,17,21,22,23,24,25,26,27,28,29,31,32,33,35,41,42,43,50,51,52,53];
       if(chave.length!=44){
-        return(false); // TAMANHO INVALIDO
+        return(null); // TAMANHO INVALIDO
       }else if(chave.substring(0,1)!="9"&&uf.indexOf(Number(chave.substring(0,2)))<0){
-        return(false); // UF IBGE INVALIDA
+        return(null); // UF IBGE INVALIDA
       }else if(Number(chave.substring(4,6))>12){
-        return(false); // MES INVALIDO
+        return(null); // MES INVALIDO
       }else if(Number(chave.substring(2,6))>((agora.getYear()-100)*100)+agora.getMonth()+1){
-        return(false); // ANO MES FUTURO
+        return(null); // ANO MES FUTURO
       }else{
         fator = [2,3,4,5,6,7,8,9];
         digito = 0;
@@ -85,26 +85,23 @@ var app  = new Framework7({
         } else {
           digito=(11-digito);
         }
-        return(chave[43]==digito);
+        return(chave[43]==digito?chave:null);
       }
     },
     confirma:function(consulta){
       _ = this;
-      _.view.main.router.navigate("/boleto/"+consulta+"/",{force:true,reloadCurrent:true});
-      
-      //_.view.main.router.navigate("/boleto/"+consulta+"/",{force:true});
-      /*
-        _.data.api.MPL_OR_RecebimentoAutomaticoExt(function(status,result){
-          _.preloader.hide();
-          if(status==200){
-            _.dialog.alert("NF-E ENCAMINHADA PARA RECEBIMENTO AUTOMÁTICO COM SUCESSO");
-          }else{
-            _.dialog.alert("ERRO DE COMUNICAÇÃO: "+status);
-          }
-        },{AccessKey:consulta});
-      */
+      _.data.api.MPL_OR_RecebimentoAutomaticoExt(function(status,result){
+        _.preloader.hide();
+        if(status==200){
+          _.dialog.alert("NF-E ENCAMINHADA PARA RECEBIMENTO AUTOMÁTICO COM SUCESSO",null,function(){
+            _.view.main.router.navigate("/boleto/"+consulta+"/",{force:true,reloadCurrent:true});
+          });
+        }else{
+          _.dialog.alert("ERRO DE COMUNICAÇÃO: "+status);
+        }
+      },{AccessKey:consulta});
     },
-    consulta:function(consulta){
+    consulta:function(consulta,ok){
       _ = this;
       _.preloader.show();
       try{
@@ -112,43 +109,40 @@ var app  = new Framework7({
           _.preloader.hide();
           if(status==200){
             if(result.Status=='A'){
+              if(ok){ok(true);}
               _.view.main.router.navigate("/pedido/"+consulta+"/",{force:true});
             }else if(result.Status=='R'){
-              _.dialog.alert("NF-E COM RECEBIMENTO JÁ SOLICITADO");
+              _.dialog.alert("NF-E COM RECEBIMENTO JÁ SOLICITADO",null,function(){if(ok){ok(false);}});
             }else if(result.Status=='N'){
-              _.dialog.alert("NF-E COM XML AINDA NÃO RECUPERADO");
+              _.dialog.alert("NF-E COM XML AINDA NÃO RECUPERADO",null,function(){if(ok){ok(false);}});
             }else if(result.Status=='P'){
-              _.dialog.alert("NF-E SEM PEDIDO DE COMPRA ASSOCIADO");
+              _.dialog.alert("NF-E SEM PEDIDO DE COMPRA ASSOCIADO",null,function(){if(ok){ok(false);}});
             }else{
-              _.dialog.alert("NF-E NÃO LIBERADA PARA RECEBIMENTO");
+              _.dialog.alert("NF-E NÃO LIBERADA PARA RECEBIMENTO",null,function(){if(ok){ok(false);}});
             }
           }else{
-            _.dialog.alert("ERRO DE COMUNICAÇÃO: "+status);
+            _.dialog.alert("ERRO DE COMUNICAÇÃO: "+status,null,function(){if(ok){ok(false);}});
           }
         },{ChaveNFe:consulta});
       }catch(error){
         _.preloader.hide();
-        _.dialog.alert(error);
+        _.dialog.alert(error,null,function(){if(ok){ok(false);}});
       }
     },
-    manual:function(){
-      _ = this;
-      if(_.methods.verifica($$('#keyboard').val())){
-        _.methods.consulta($$('#keyboard').val());
+    manual:function(codigo,ok){
+      codigo = this.methods.verifica(codigo);
+      if(codigo){
+        this.methods.consulta(codigo,ok);
       }else{
-        app.dialog.alert("A Chave de Acesso informafa não é válida");
-        $$('#keyboard').focus();
+        this.dialog.alert("A Chave de Acesso informafa não é válida",null,function(){if(ok){ok(false);}});
       }
     },
-    manual_bb:function(codigo){
-      console.log(codigo);
+    manual_bb:function(nfe,codigo,ok){
       codigo = this.methods.linha_digitavel(codigo);
-      console.log(codigo);
       if(codigo!=null){
-        this.methods.registra_boleto(codigo);
+        this.methods.registra_boleto(nfe,codigo,ok);
       }else{
-        this.dialog.alert("A Linha Digitável informafa não é válida");
-        $$('#keyboard_bb').focus();
+        this.dialog.alert("A Linha Digitável informafa não é válida",null,function(){if(ok){ok(false);}});
       }
     },
     automatico:function(){
@@ -156,10 +150,11 @@ var app  = new Framework7({
       cordova.plugins.barcodeScanner.scan(
         function (result) {
           if(!result.cancelled){
-            if(_.methods.verifica(result.text)){
-              _.methods.consulta(result.text);
+            codigo = _.methods.verifica(result.text);
+            if(codigo){
+              _.methods.consulta(codigo);
             }else{
-              _.dialog.alert("O Código de Barras lido não é válido para Nota Fiscal Eletrônica",null,_.methods.automatico);
+              _.dialog.alert("O Código de Barras lido não é válido para Nota Fiscal Eletrônica",null,function(){_.methods.automatico();});
             }
           }
         },
@@ -167,30 +162,27 @@ var app  = new Framework7({
           _.dialog.alert("ERRO DESCONHECIDO:" + error);
         },
         {
-          //preferFrontCamera : true, // iOS and Android
-          //showFlipCameraButton : true, // iOS and Android
-          //saveHistory: true, // Android, save scan history (default false)
-          formats: "CODE_128", //"QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
-          orientation: "landscape", // Android only (portrait|landscape), default unset so it rotates with the device
-          showTorchButton: false, // iOS and Android
-          torchOn: false, // Android, launch with the torch switched on (if available)
-          prompt: "APONTE PARA A NOTA FISCAL ELETRÔNICA",
-          resultDisplayDuration: 0, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
-          disableAnimations: true, // iOS
-          disableSuccessBeep: false // iOS and Android
+          formats: "CODE_128",
+          orientation: "landscape",
+          showTorchButton: false,
+          torchOn: false,
+          prompt: "ENQUADRE O CÓDIGO DE BARRAS DA NOTA FISCAL ELETRÔNICA",
+          resultDisplayDuration: 0,
+          disableAnimations: true,
+          disableSuccessBeep: false
         }
       );
     },
-    automatico_bb:function(){
+    automatico_bb:function(nfe){
       _ = this;
       cordova.plugins.barcodeScanner.scan(
         function (result){
           if(!result.cancelled){
             codigo = codigo_barras(result.text);
             if(codigo!=null){
-              _.methods.registra_boleto(codigo);
+              _.methods.registra_boleto(nfe,codigo);
             }else{
-              _.dialog.alert("O Código de Barras lido não é válido para Boleto Bancário",null,_.methods.automatico_boleto);
+              _.dialog.alert("O Código de Barras lido não é válido para Boleto Bancário",null,function(){_.methods.automatico_bb(nfe);});
             }
           }
         },
@@ -198,22 +190,31 @@ var app  = new Framework7({
           _.dialog.alert("ERRO DESCONHECIDO:" + error);
         },
         {
-          //preferFrontCamera : true, // iOS and Android
-          //showFlipCameraButton : true, // iOS and Android
-          //saveHistory: true, // Android, save scan history (default false)
-          formats: "ITF", //"QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
-          orientation: "landscape", // Android only (portrait|landscape), default unset so it rotates with the device
-          showTorchButton: false, // iOS and Android
-          torchOn: false, // Android, launch with the torch switched on (if available)
-          prompt: "APONTE PARA O BOLETO BANCÁRIO",
-          resultDisplayDuration: 0, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
-          disableAnimations: true, // iOS
-          disableSuccessBeep: false // iOS and Android
+          formats: "ITF",
+          orientation: "landscape",
+          showTorchButton: false,
+          torchOn: false,
+          prompt: "ENQUADRE O CÓDIGO DE BARRAS DO BOLETO BANCÁRIO",
+          resultDisplayDuration: 0,
+          disableAnimations: true, 
+          disableSuccessBeep: false
         }
       );
     },
-    registra_boleto:function(codigo){
-      console.log(codigo);
+    registra_boleto:function(nf,bb,ok){
+      _ = this;
+      _.preloader.show();
+      try{
+        _.data.api.MPL_OR_RecAutoBoleto(function(status,result){
+          _.preloader.hide();
+          if(status==200){
+            _.dialog.alert("Boleto Bancário associado com sucesso",null,function(){if(ok){ok(true);}});
+          }
+        },{NF:nf,BB:bb});
+      }catch(error){
+        _.preloader.hide();
+        _.dialog.alert(error,null,function(){if(ok){ok(false);}});
+      }
     },
     modulo_10:function(str){
       var soma = 0;
@@ -277,14 +278,14 @@ var app  = new Framework7({
       path:'/',
       beforeEnter: function (routeTo, routeFrom, resolve, reject){
         if(cordova&&screen&&screen.orientation){
-          console.log("screen.orientation=portrait");
+          //console.log("screen.orientation=portrait");
           screen.orientation.lock('portrait');
         }
         resolve();
       },
       beforeLeave: function (routeTo, routeFrom, resolve, reject) {
         if(cordova&&screen&&screen.orientation){
-          console.log("screen.orientation=landscape");
+          //console.log("screen.orientation=landscape");
           screen.orientation.lock('landscape');
         }
         resolve();
@@ -309,7 +310,7 @@ var app  = new Framework7({
                 },
                 {
                   context: {
-                    pedido:result.ServiceRequest1.fs_DATABROWSE_F55MPL02.data.gridData.rowset
+                    pedido:result.DETALHES.rowset
                   },
                 }
               );
@@ -333,7 +334,7 @@ var app  = new Framework7({
 });
 document.addEventListener("deviceready",function(){
   if(cordova&&screen&&screen.orientation){
-    console.log("screen.orientation=portrait");
+    //console.log("screen.orientation=portrait");
     screen.orientation.lock('portrait');
   }
   app.views.create('.view-main');
