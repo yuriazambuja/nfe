@@ -208,7 +208,21 @@ var app  = new Framework7({
         _.data.api.MPL_OR_RecAutoBoleto(function(status,result){
           _.preloader.hide();
           if(status==200){
-            _.dialog.alert("Boleto Bancário associado com sucesso",null,function(){if(ok){ok(true);}});
+            if(result.NF){
+              if(nf==result.NF){
+                _.dialog.alert("Boleto Bancário já associado à mesma Nota Fiscal Eletônica",null,function(){if(ok){ok(false);}});
+              }else{
+                _.dialog.alert("Boleto Bancário já associado a outra Nota Fiscal Eletônica",null,function(){if(ok){ok(false);}});
+              }
+            }else{
+              if(result.STATUS=="D"){
+                _.dialog.alert("Boleto Bancário associado com sucesso à Nota Fiscal Eletônica",null,function(){if(ok){ok(true);}});
+              }else{
+                _.dialog.alert("Não foi possível associar o Boleto Bancário: "+result.STATUS,null,function(){if(ok){ok(false);}});
+              }
+            }
+          }else{
+            _.dialog.alert("ERRO DE COMUNICAÇÃO: "+status,null,function(){if(ok){ok(false);}});
           }
         },{NF:nf,BB:bb});
       }catch(error){
