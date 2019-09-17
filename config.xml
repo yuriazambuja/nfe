@@ -9,7 +9,7 @@
   <preference name="phonegap-version" value="cli-9.0.0" />
   <preference name="android-windowSoftInputMode" value="adjustPan" />
   <preference name="DisallowOverscroll" value="true" />
-  <preference name="android-minSdkVersion" value="15" />
+  <!--<preference name="android-minSdkVersion" value="15" />-->
   <!--<preference name="android-targetSdkVersion" value="26" />-->
   <preference name="android-targetSdkVersion" value="28" />
   <plugin name="cordova-plugin-screen-orientation" />
