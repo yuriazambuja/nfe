@@ -354,5 +354,8 @@ document.addEventListener("deviceready",function(){
   app.views.create('.view-main');
   app.toggle.get('#type').checked = window.localStorage.getItem("type")=="true";
   app.methods.recupera("host","port","user");
+  if($$("#host input").val().trim()==""){
+    $$("#conf").addClass("accordion-item-opened");
+  }
   $$("#login").on('click',app.methods.autentica);
 }, false);

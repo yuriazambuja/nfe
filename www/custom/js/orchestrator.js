@@ -2,7 +2,7 @@ function orchestrator(done,type,host,port,user,pswd){
     self = this;
     call = function(done,post,path){
         http = new XMLHttpRequest();
-        http.open(path?"POST":"GET","http"+(type?'s':'')+"://"+host+":"+port+"/jderest/"+(path?"orchestrator/"+path:"discover"),true);
+        http.open(path?"POST":"GET","http"+(type?'s':'')+"://"+host+(port?":"+port:'')+"/jderest/"+(path?"orchestrator/"+path:"discover"),true);
         http.setRequestHeader("Content-Type","application/json");	
         http.setRequestHeader("Authorization","Basic "+btoa(user+":"+pswd));
         http.onreadystatechange = function(){
