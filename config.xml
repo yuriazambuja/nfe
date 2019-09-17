@@ -11,7 +11,7 @@
   <preference name="DisallowOverscroll" value="true" />
   <preference name="android-minSdkVersion" value="15" />
   <preference name="android-targetSdkVersion" value="26" />
-  <!--<plugin name="cordova-plugin-screen-orientation" />-->
+  <<plugin name="cordova-plugin-screen-orientation" />
   <plugin name="cordova-plugin-whitelist" />
   <plugin spec="https://github.com/Telerik-Verified-Plugins/BarcodeScanner.git" source="git" />
   <plugin name="cordova-android-support-gradle-release">
