@@ -26,4 +26,5 @@
   <preference name="AutoHideSplashScreen" value="true" />
   <preference name="ShowSplashScreen" value="true" />
   <preference name="ShowSplashScreenSpinner" value="false" />
+  <preference name="StatusBarBackgroundColor" value="#F7F7F8" />
 </widget>
