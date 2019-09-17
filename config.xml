@@ -3,7 +3,7 @@
   <name>Recebimento</name>
   <icon src="www/custom/img/favicon.png" /> 
   <access origin="*" />
-  <preference name="android-build-tool" value="gradle" />
+  <!--<preference name="android-build-tool" value="gradle" />-->
   <preference name="phonegap-version" value="cli-9.0.0" />
   <preference name="permissions" value="none" />
   <preference name="prerendered-icon" value="true" />
@@ -11,7 +11,7 @@
   <preference name="DisallowOverscroll" value="true" />
   <preference name="android-targetSdkVersion" value="28" />
   <!--<plugin spec="https://github.com/phonegap/phonegap-plugin-barcodescanner.git#bd82b3f" />-->
-  <plugin name="phonegap-plugin-barcodescanner">
+  <plugin name="phonegap-plugin-barcodescanner" spec="8.1.0">
     <variable name="CAMERA_USAGE_DESCRIPTION" value="Leitura de Código de Barras" />
   </plugin>
   <plugin name="cordova-plugin-screen-orientation" spec="3.0.2" />
