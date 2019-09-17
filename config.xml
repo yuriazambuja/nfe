@@ -14,7 +14,7 @@
   <plugin name="cordova-plugin-whitelist" />
   
   
-  <plugin spec="https://github.com/Telerik-Verified-Plugins/BarcodeScanner.git" source="git" />
+  <plugin spec="https://github.com/phonegap/phonegap-plugin-barcodescanner.git" source="git" />
   
   
 </widget>
