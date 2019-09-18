@@ -61,7 +61,7 @@ var app  = new Framework7({
         _.preloader.hide();
       }
     },
-    verifica:function(chave){
+    chava_acesso:function(chave){
       chave = chave.replace(/[^\d]+/g,'');
       agora = new Date();
       uf = [11,12,13,14,15,16,17,21,22,23,24,25,26,27,28,29,31,32,33,35,41,42,43,50,51,52,53];
@@ -129,15 +129,15 @@ var app  = new Framework7({
         _.dialog.alert(error,null,function(){if(ok){ok(false);}});
       }
     },
-    manual:function(codigo,ok){
-      codigo = this.methods.verifica(codigo);
+    keyboard_nf:function(codigo,ok){
+      codigo = this.methods.chava_acesso(codigo);
       if(codigo){
         this.methods.consulta(codigo,ok);
       }else{
         this.dialog.alert("A Chave de Acesso informafa não é válida",null,function(){if(ok){ok(false);}});
       }
     },
-    manual_bb:function(nfe,codigo,ok){
+    keyboard_bb:function(nfe,codigo,ok){
       codigo = this.methods.linha_digitavel(codigo);
       if(codigo!=null){
         this.methods.registra_boleto(nfe,codigo,ok);
@@ -145,12 +145,12 @@ var app  = new Framework7({
         this.dialog.alert("A Linha Digitável informafa não é válida",null,function(){if(ok){ok(false);}});
       }
     },
-    automatico:function(){
+    scanner_nf:function(){
       _ = this;
       cordova.plugins.barcodeScanner.scan(
         function (result) {
           if(!result.cancelled){
-            codigo = _.methods.verifica(result.text);
+            codigo = _.methods.chava_acesso(result.text);
             if(codigo){
               _.methods.consulta(codigo);
             }else{
@@ -173,12 +173,12 @@ var app  = new Framework7({
         }
       );
     },
-    automatico_bb:function(nfe){
+    scanner_bb:function(nfe){
       _ = this;
       cordova.plugins.barcodeScanner.scan(
         function (result){
           if(!result.cancelled){
-            codigo = codigo_barras(result.text);
+            codigo = _.methods.codigo_barras(result.text);
             if(codigo!=null){
               _.methods.registra_boleto(nfe,codigo);
             }else{
@@ -231,9 +231,9 @@ var app  = new Framework7({
       }
     },
     modulo_10:function(str){
-      var soma = 0;
-      var peso = 2;
-      var contador = str.length - 1;
+      soma = 0;
+      peso = 2;
+      contador = str.length - 1;
       while (contador >= 0) {
         multiplicacao = (str.substr(contador, 1) * peso);
         if (multiplicacao >= 10) { multiplicacao = 1 + (multiplicacao - 10); }
@@ -245,17 +245,17 @@ var app  = new Framework7({
         }
         contador = contador - 1;
       }
-      var digito = 10 - (soma % 10);
+      digito = 10 - (soma % 10);
       if (digito == 10) digito = 0;
       return digito;
     },
     modulo_11:function(str){
-      var soma = 0;
-      var peso = 2;
-      var base = 9;
-      var resto = 0;
-      var contador = str.length - 1;
-      for (var i = contador; i >= 0; i--) {
+      soma = 0;
+      peso = 2;
+      base = 9;
+      resto = 0;
+      contador = str.length - 1;
+      for (i = contador; i >= 0; i--) {
         soma = soma + (str.substring(i, i + 1) * peso);
         if (peso < base) {
           peso++;
@@ -263,7 +263,7 @@ var app  = new Framework7({
           peso = 2;
         }
       }
-      var digito = 11 - (soma % 11);
+      digito = 11 - (soma % 11);
       if (digito > 9) digito = 0;
       if (digito == 0) digito = 1;
       return digito;

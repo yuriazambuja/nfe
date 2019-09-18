@@ -18,16 +18,16 @@
     <div class="block-title">Identificação da NFe</div>
     <div class="list no-hairlines-md">
       <ul>
-        <li class="item-content item-input" id="block">
+        <li class="item-content item-input" id="block_nf">
           <div class="item-inner">
             <div class="item-title item-floating-label">Chave de Acesso</div>
             <div class="item-input-wrap">
-              <input type="tel" class="input-with-value" id="keyboard" value="" />
+              <input type="tel" class="input-with-value" id="keyboard_nf" value="" />
             </div>
           </div>
         </li>
         <li>
-          <a href="#" class="list-button" id="command"></a>
+          <a href="#" class="list-button" id="command_nf"></a>
         </li>
       </ul>
     </div>
@@ -38,35 +38,35 @@
   return {
     on: {
       pageInit:function(e,page){
-        alternate = function(){
-          return cordova&&cordova.plugins&&cordova.plugins.barcodeScanner&&$$("#keyboard").val().trim()=="";
+        identify_nf = function(){
+          return $$("#keyboard_nf").val().trim()==""//&&cordova&&cordova.plugins&&cordova.plugins.barcodeScanner;
         }
-        command = function(_){
-          if(alternate()){
-            _.methods.automatico();
+        command_nf = function(_){
+          if(identify_nf()){
+            _.methods.scanner_nf();
           }else{
-            _.methods.manual($$("#keyboard").val(),function(ok){
+            _.methods.keyboard_nf($$("#keyboard_nf").val(),function(ok){
               if(ok){
-                $$("#keyboard").val("");
-                $$("#block").removeClass("item-input-with-value");
+                $$("#keyboard_nf").val("");
+                $$("#block_nf").removeClass("item-input-with-value");
               }else{
-                $$("#keyboard").focus();
+                $$("#keyboard_nf").focus();
               }
             });
           }
         };
-        keyboard = function(){
-          $$("#command").text(
-            alternate()?"Ler Código de Barras":"Consultar Chave de Acesso"
+        alternate_nf = function(){
+          $$("#command_nf").text(
+            identify_nf()?"Ler Código de Barras":"Consultar Chave de Acesso"
           );
         };
-        $$("#keyboard").on('keyup',keyboard);
-        $$("#command").on('click',function(){command(page.app)});
+        $$("#keyboard_nf").on('keyup',function(){alternate_nf();});
+        $$("#command_nf").on('click',function(){command_nf(page.app)});
       },
       pageBeforeIn:function(e,page){
-        $$("#keyboard").val("");
-        $$("#block").removeClass("item-input-with-value");
-        keyboard();
+        $$("#keyboard_nf").val("");
+        $$("#block_nf").removeClass("item-input-with-value");
+        alternate_nf();
       }
   }
 }

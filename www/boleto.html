@@ -38,14 +38,14 @@
   return {
     on: {
       pageInit: function (e, page) {
-        alternate_bb = function () {
-          return cordova && cordova.plugins && cordova.plugins.barcodeScanner && $$("#keyboard_bb").val().trim() == "";
+        identify_bb = function () {
+          return $$("#keyboard_bb").val().trim()==""//&&cordova&&cordova.plugins&&cordova.plugins.barcodeScanner;
         }
         command_bb = function (_) {
-          if (alternate_bb()) {
-            _.app.methods.automatico_bb(_.route.params.nfe);
+          if (identify_bb()) {
+            _.app.methods.scanner_bb(_.route.params.nfe);
           } else {
-            _.app.methods.manual_bb(_.route.params.nfe,$$('#keyboard_bb').val(),function(ok){
+            _.app.methods.keyboard_bb(_.route.params.nfe,$$('#keyboard_bb').val(),function(ok){
               if(ok){
                 $$("#keyboard_bb").val("");
                 $$("#block_bb").removeClass("item-input-with-value");
@@ -54,18 +54,18 @@
             });
           }
         };
-        keyboard_bb = function () {
+        alternate_bb = function () {
           $$("#command_bb").text(
-            alternate_bb() ? "Ler Código de Barras" : "Consultar Linha Digitável"
+            identify_bb() ? "Ler Código de Barras" : "Consultar Linha Digitável"
           );
         };
-        $$("#keyboard_bb").on('keyup', function () { keyboard_bb(); });
+        $$("#keyboard_bb").on('keyup', function () { alternate_bb(); });
         $$("#command_bb").on('click', function () { command_bb(page) });
       },
       pageBeforeIn: function (e, page) {
         $$("#keyboard_bb").val("");
         $$("#block_bb").removeClass("item-input-with-value");
-        keyboard_bb();
+        alternate_bb();
       }
     }
   }
