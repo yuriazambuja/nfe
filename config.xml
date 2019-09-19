@@ -1,5 +1,10 @@
 <widget id="br.com.mpl.recebimento" version="1.0" versionCode="1">
-  <platform name="android" />
+  <platform name="android">
+      <allow-intent href="market:*" />
+      <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application" xmlns:android="http://schemas.android.com/apk/res/android">
+          <application android:usesCleartextTraffic="true" />
+      </edit-config>
+  </platform>
   <name>Recebimento</name>
   <access allows-arbitrary-loads-for-media="true" allows-arbitrary-loads-in-web-content="true" allows-local-networking="true" origin="*"/>
   <allow-intent href="http://*/*"/>
